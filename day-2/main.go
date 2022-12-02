@@ -30,23 +30,26 @@ func main() {
 	scanner := bufio.NewScanner(file)
 	for scanner.Scan() {
 		rps := scanner.Bytes()
-		// fmt.Printf("%v %v\n", string(rps[0]), string(rps[2]))
-		score += m[rps[2]]
-		// fmt.Printf("throw %v new score %v\n", m[rps[2]], score)
-		if m[rps[2]] == m[rps[0]] {
+		fmt.Printf("%v %v ", string(rps[0]), string(rps[2]))
+		if rps[2] == 'Y' {
 			score += 3
-			// fmt.Printf("result %v new score %v\n", "3", score)
-			continue
-		}
-		if rps[2] == 'X' && rps[0] == 'C' || rps[2] == 'Y' && rps[0] == 'A' {
+			score += m[rps[0]]
+			 fmt.Printf("result %v new score %v\n", "3", score)
+		} else if rps[2] == 'Z' {
 			score += 6
-			// fmt.Printf("result %v new score %v\n", "6", score)
-			continue
-		}
-		if rps[2] == 'Z' && rps[0] == 'B' {
-			score += 6
-			// fmt.Printf("result %v new score %v\n", "6", score)
-			continue
+			result := (m[rps[0]] + 1)
+			if result > 3 {
+				result = result %3
+			}
+			score += result
+			 fmt.Printf("result %v new score %v\n", result, score)
+		} else {
+			result := (m[rps[0]] + 2)
+			if result > 3 {
+				result = result %3
+			}
+			score += result
+			 fmt.Printf("result %v new score %v\n", result, score)
 		}
 	}
 
